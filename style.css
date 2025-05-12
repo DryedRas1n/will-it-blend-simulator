@@ -1,53 +1,35 @@
-const dropZone = document.getElementById("drop-zone");
-const blendButton = document.getElementById("blend-button");
-const result = document.getElementById("result");
+body {
+  font-family: sans-serif;
+}
 
-let currentItem = null;
+#elements {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
 
-// Drag and drop
-document.querySelectorAll(".item").forEach(item => {
-  item.addEventListener("dragstart", () => {
-    currentItem = item.textContent;
-  });
-});
+button {
+  padding: 8px;
+  cursor: grab;
+}
 
-dropZone.addEventListener("dragover", (e) => {
-  e.preventDefault();
-  dropZone.style.borderColor = "green";
-});
+#playArea {
+  border: 2px dashed gray;
+  width: 100%;
+  height: 500px;
+  position: relative;
+}
 
-dropZone.addEventListener("dragleave", () => {
-  dropZone.style.borderColor = "#555";
-});
+.item {
+  position: absolute;
+  background: white;
+  border: 1px solid #333;
+  padding: 4px;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-dropZone.addEventListener("drop", () => {
-  dropZone.textContent = currentItem;
-  dropZone.style.borderColor = "#555";
-});
-
-// Results
-const results = [
-  "✅ It blended perfectly!",
-  "💥 Blender exploded!",
-  "😬 Weird goo came out.",
-  "🧠 You broke science.",
-  "🥴 It screamed.",
-  "🔥 Smoke everywhere.",
-  "🪄 It turned into glitter.",
-  "❌ Blender refused.",
-  "👻 A ghost appeared."
-];
-
-blendButton.addEventListener("click", () => {
-  if (dropZone.textContent === "Drop items here") {
-    result.textContent = "🧐 Put something in the blender!";
-    return;
-  }
-
-  const randomResult = results[Math.floor(Math.random() * results.length)];
-  result.textContent = randomResult;
-
-  // Reset drop zone after blending
-  dropZone.textContent = "Drop items here";
-});
-
+.selected {
+  background: yellow;
+}
