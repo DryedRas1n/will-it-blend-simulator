@@ -1,1 +1,53 @@
+const dropZone = document.getElementById("drop-zone");
+const blendButton = document.getElementById("blend-button");
+const result = document.getElementById("result");
+
+let currentItem = null;
+
+// Drag and drop
+document.querySelectorAll(".item").forEach(item => {
+  item.addEventListener("dragstart", () => {
+    currentItem = item.textContent;
+  });
+});
+
+dropZone.addEventListener("dragover", (e) => {
+  e.preventDefault();
+  dropZone.style.borderColor = "green";
+});
+
+dropZone.addEventListener("dragleave", () => {
+  dropZone.style.borderColor = "#555";
+});
+
+dropZone.addEventListener("drop", () => {
+  dropZone.textContent = currentItem;
+  dropZone.style.borderColor = "#555";
+});
+
+// Results
+const results = [
+  "✅ It blended perfectly!",
+  "💥 Blender exploded!",
+  "😬 Weird goo came out.",
+  "🧠 You broke science.",
+  "🥴 It screamed.",
+  "🔥 Smoke everywhere.",
+  "🪄 It turned into glitter.",
+  "❌ Blender refused.",
+  "👻 A ghost appeared."
+];
+
+blendButton.addEventListener("click", () => {
+  if (dropZone.textContent === "Drop items here") {
+    result.textContent = "🧐 Put something in the blender!";
+    return;
+  }
+
+  const randomResult = results[Math.floor(Math.random() * results.length)];
+  result.textContent = randomResult;
+
+  // Reset drop zone after blending
+  dropZone.textContent = "Drop items here";
+});
 
